@@ -1,0 +1,17 @@
+Create a new React application:
+- open terminal and type:
+
+npx create-react-app amplifyapp
+cd amplifyapp
+npm start
+
+Then initialize git and push your project to a git repo:
+
+git init
+git remote add origin git@github.com:username/reponame.git
+git add .
+git commit -m “initial commit”
+git push origin master
+
+Then go to amplify console and connect it to your git to create your fronend.
+
