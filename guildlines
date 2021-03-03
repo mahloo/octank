@@ -5,7 +5,7 @@ npx create-react-app amplifyapp
 cd amplifyapp
 npm start
 
-Then initialize git and push your project to a git repo:
+-Then initialize git and push your project to a git repo:
 
 git init
 git remote add origin git@github.com:username/reponame.git
@@ -13,5 +13,66 @@ git add .
 git commit -m “initial commit”
 git push origin master
 
-Then go to amplify console and connect it to your git to create your fronend.
+-Then go to amplify console and connect it to your git to create your fronend.
+-Everytime you make changes in code push it to git:
+git add .
+git commit -m “changes for v2”
+git push origin master
 
+
+-Now initialize an amplify project inside your project directory:
+npm install -g @aws-amplify/cli
+
+-If needed configure amplify:
+amplify configure
+
+- go to amplify console and start the backend for your project
+- Go back to the Amplify Console Backend environments tab and open the Local setup instructions. Copy the command to your clipboard and open the terminal on your computer.
+- Paste the command into your terminal and follow the setup instructions.
+
+? Choose your default editor: Visual Studio Code
+? Choose the type of app that you're building javascript
+? What javascript framework are you using react
+? Source Directory Path:  src 
+? Distribution Directory Path: build
+? Build Command:  npm run-script build
+? Start Command: npm run-script start
+? Do you plan on modifying this backend? Y
+
+-to test it try to access console:
+amplify console
+
+- now install amplify library for AWs services in backend and related to react:
+npm install aws-amplify @aws-amplify/ui-react
+
+- add auth to backend:
+amplify add auth
+
+- Now that the authentication service has been configured locally, we can deploy it by running the Amplify push command:
+amplify push --y
+
+- now configure react project to add auth:
+- The CLI has created and will continue to update a file called aws-exports.js located in the src directory of our project. We will use this file to let the React project know about the different AWS resources that are available in our Amplify project. To configure our app with these resources, open src/index.js and add the following code below the last import:
+import Amplify from 'aws-amplify';
+import config from './aws-exports';
+Amplify.configure(config);
+
+- Add teh auth flow in src/App.js by following update:
+import React from 'react';
+import logo from './logo.svg';
+import './App.css';
+import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react'
+
+function App() {
+  return (
+    <div className="App">
+      <header>
+        <img src={logo} className="App-logo" alt="logo" />
+        <h1>We now have Auth!</h1>
+      </header>
+      <AmplifySignOut />
+    </div>
+  );
+}
+
+export default withAuthenticator(App);
