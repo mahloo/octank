@@ -76,3 +76,28 @@ function App() {
 }
 
 export default withAuthenticator(App);
+
+- In above component we've used the withAuthenticator component. This component will scaffold out an entire user authentication flow allowing users to sign up, sign in, reset their password, and confirm sign in for multifactor authentication (MFA). We've also used the AmplifySignOut component which will render a Sign Out button.
+
+- to run app locally on your browser:
+npm start
+
+- setup CI/CD for frontend and backend, go to amplify console. From the navigation sidebar, choose App settings > Build settings and modify it to add the backend section (lines 2-7 in the code below) to your amplify.yml. After making the edits, choose Save.
+- From the navigation sidebar, choose App settings > Build settings and modify it to add the backend section (lines 2-7 in the code below) to your amplify.yml. After making the edits, choose Save.
+version: 1
+backend:
+  phases:
+    build:
+      commands:
+        - '# Execute Amplify CLI with the helper script'
+        - amplifyPush --simple
+frontend:
+.....
+
+- Next, update your front end branch to point to the backend environment you just created. Under the branch name, choose Edit, and then point your master branch to the dev backend you just created. Choose Save.
+
+
+- push changes to git:
+git add .
+git commit -m “added auth”
+git push origin master
