@@ -105,3 +105,6 @@ git push origin master
 
 If the build failes, check build setting in amplify console (https://github.com/aws-amplify/amplify-cli/issues/6117) and push again.
 Also go to App setting/General/edit, and add an IAM service role.
+
+- craete graphql API:
+amplify add api 

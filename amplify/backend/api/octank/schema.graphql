@@ -1,0 +1,16 @@
+type User @model {
+  id: ID!
+  firstname: String!
+  lastname: String!
+  mobil: String!
+}
+
+type Claim @model {
+  id: ID!
+  name: String!
+  description: String!
+  date: AWSDate!
+  oneCar: Boolean!
+  driver2: String
+  image: String
+}
