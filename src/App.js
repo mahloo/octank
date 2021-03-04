@@ -1,14 +1,102 @@
 import React, { useState, useEffect } from 'react';
+//new
+import {
+  HashRouter,
+  Switch,
+  Route
+} from "react-router-dom";
+import { DataStore } from "@aws-amplify/datastore";
+import { css } from '@emotion/css';
+import Claims from './Claims';
+import Claim from './Claim';
+import Header from './Header';
+import CreateClaim from './CreateClaim';
+import Button from './Button';
+//
 import './App.css';
 import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
-import { API, Storage } from 'aws-amplify';
+import { API, Storage, Auth} from 'aws-amplify';
 import { listClaims } from './graphql/queries';
-import { readUserInfo } from './graphql/queries';
-import { updateUser as updateUserMutation } from './graphql/mutations';
-import { createClaim as createClaimMutation, updateClaim as updateClaimMutation, deleteClaim as deleteClaimMutation } from './graphql/mutations';
+//import { readUserInfo } from './graphql/queries';
+//import { updateUser as updateUserMutation } from './graphql/mutations';
+//import { createClaim as createClaimMutation, updateClaim as updateClaimMutation, deleteClaim as deleteClaimMutation } from './graphql/mutations';
 
 const initialFormState = { name: '', description: '', date: '' }
 
+function Router() {
+  /* create a couple of pieces of initial state */
+  const [showOverlay, updateOverlayVisibility] = useState(false);
+  const [claims, updateClaims] = useState([]);
+  const [myClaims, updateMyClaims] = useState([]);
+
+  /* fetch claims when component loads */
+  useEffect(() => {
+    fetchClaims();
+  }, []);
+
+  async function fetchClaims() {
+    const apiData = await API.graphql({ query: listClaims});
+    const claimsFromAPI = apiData.data.listClaims.items;
+    await Promise.all(claimsFromAPI.map(async claim => {
+      if (claim.image) {
+        const image = await Storage.get(claim.image);
+        claim.image = image;
+      }
+      return claim;
+    }))
+    setClaimState(claimsFromAPI);
+  }
+
+  async function setClaimState(claimsFromAPI) {
+    const user = await Auth.currentAuthenticatedUser();
+    const myClaimData = claimsFromAPI.filter(p => p.owner === user.username);
+    updateMyClaims(myClaimData);
+    updateClaims(claimsFromAPI);
+  }
+
+  return (
+    <>
+      <HashRouter>
+          <div className={contentStyle}>
+            <Header />
+            <hr className={dividerStyle} />
+            <Button title="Add Claim" onClick={() => updateOverlayVisibility(true)} />
+            <Switch>
+              <Route exact path="/" >
+                <Claims claims={claims} />
+              </Route>
+              <Route path="/claim/:id" >
+                <Claim />
+              </Route>
+              <Route exact path="/myclaim" >
+                <Claims claims={myClaims} />
+              </Route>
+            </Switch>
+          </div>
+          <AmplifySignOut />
+        </HashRouter>
+        { showOverlay && (
+          <CreateClaim
+            updateOverlayVisibility={updateOverlayVisibility}
+            updateClaims={setClaimState}
+            claims={claims}
+          />
+        )}
+    </>
+  );
+} 
+
+const dividerStyle = css`
+  margin-top: 15px;
+`
+
+const contentStyle = css`
+  min-height: calc(100vh - 45px);
+  padding: 0px 40px;
+`
+
+export default withAuthenticator(Router);
+/*
 function App() {
   const [claims, setClaims] = useState([]);
   const [formData, setFormData] = useState(initialFormState);
@@ -98,3 +186,4 @@ function App() {
 }
 
 export default withAuthenticator(App);
+*/

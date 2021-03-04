@@ -1,11 +1,30 @@
-type User @model {
+type User @model
+  @auth(rules: [
+    { allow: owner, ownerField: "owner" }
+    { allow: groups, groups: ["users"], operations: [read] }
+    {
+        allow: groups
+        groups: ["editors"]
+        operations: [create, read, update, delete]
+    }
+  ]) {
   id: ID!
   firstname: String!
   lastname: String!
   mobil: String!
+  claims: [Claim] @connection
 }
 
-type Claim @model {
+type Claim @model
+  @auth(rules: [
+      { allow: owner, ownerField: "owner" }
+      { allow: groups, groups: ["users"], operations: [read, create] }
+      {
+        allow: groups
+        groups: ["editors"]
+        operations: [read, update, create, delete]
+      }
+  ]) {
   id: ID!
   name: String!
   description: String!
@@ -13,4 +32,5 @@ type Claim @model {
   oneCar: Boolean!
   driver2: String
   image: String
+  owner: String
 }

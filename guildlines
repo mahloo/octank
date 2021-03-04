@@ -108,3 +108,6 @@ Also go to App setting/General/edit, and add an IAM service role.
 
 - craete graphql API:
 amplify add api 
+
+- To solve error related to react-motion, run following command:
+npm install --save @emotion/css

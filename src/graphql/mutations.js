@@ -11,8 +11,24 @@ export const createUser = /* GraphQL */ `
       firstname
       lastname
       mobil
+      claims {
+        items {
+          id
+          name
+          description
+          date
+          oneCar
+          driver2
+          image
+          owner
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -26,8 +42,24 @@ export const updateUser = /* GraphQL */ `
       firstname
       lastname
       mobil
+      claims {
+        items {
+          id
+          name
+          description
+          date
+          oneCar
+          driver2
+          image
+          owner
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -41,8 +73,24 @@ export const deleteUser = /* GraphQL */ `
       firstname
       lastname
       mobil
+      claims {
+        items {
+          id
+          name
+          description
+          date
+          oneCar
+          driver2
+          image
+          owner
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -59,6 +107,7 @@ export const createClaim = /* GraphQL */ `
       oneCar
       driver2
       image
+      owner
       createdAt
       updatedAt
     }
@@ -77,6 +126,7 @@ export const updateClaim = /* GraphQL */ `
       oneCar
       driver2
       image
+      owner
       createdAt
       updatedAt
     }
@@ -95,6 +145,7 @@ export const deleteClaim = /* GraphQL */ `
       oneCar
       driver2
       image
+      owner
       createdAt
       updatedAt
     }

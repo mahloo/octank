@@ -8,8 +8,24 @@ export const getUser = /* GraphQL */ `
       firstname
       lastname
       mobil
+      claims {
+        items {
+          id
+          name
+          description
+          date
+          oneCar
+          driver2
+          image
+          owner
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -25,8 +41,12 @@ export const listUsers = /* GraphQL */ `
         firstname
         lastname
         mobil
+        claims {
+          nextToken
+        }
         createdAt
         updatedAt
+        owner
       }
       nextToken
     }
@@ -42,6 +62,7 @@ export const getClaim = /* GraphQL */ `
       oneCar
       driver2
       image
+      owner
       createdAt
       updatedAt
     }
@@ -62,6 +83,7 @@ export const listClaims = /* GraphQL */ `
         oneCar
         driver2
         image
+        owner
         createdAt
         updatedAt
       }

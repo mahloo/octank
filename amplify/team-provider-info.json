@@ -14,6 +14,13 @@
     "categories": {
       "auth": {
         "octank832b448d": {}
+      },
+      "function": {
+        "octank832b448dPostConfirmation": {
+          "GROUP": "group1",
+          "deploymentBucketName": "amplify-amplify6c0d34502ead4-staging-84514-deployment",
+          "s3Key": "amplify-builds/octank832b448dPostConfirmation-4c4c71526f696a61704e-build.zip"
+        }
       }
     }
   }

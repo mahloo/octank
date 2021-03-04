@@ -2,44 +2,92 @@
 // this is an auto generated file. This will be overwritten
 
 export const onCreateUser = /* GraphQL */ `
-  subscription OnCreateUser {
-    onCreateUser {
+  subscription OnCreateUser($owner: String) {
+    onCreateUser(owner: $owner) {
       id
       firstname
       lastname
       mobil
+      claims {
+        items {
+          id
+          name
+          description
+          date
+          oneCar
+          driver2
+          image
+          owner
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
+      owner
     }
   }
 `;
 export const onUpdateUser = /* GraphQL */ `
-  subscription OnUpdateUser {
-    onUpdateUser {
+  subscription OnUpdateUser($owner: String) {
+    onUpdateUser(owner: $owner) {
       id
       firstname
       lastname
       mobil
+      claims {
+        items {
+          id
+          name
+          description
+          date
+          oneCar
+          driver2
+          image
+          owner
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
+      owner
     }
   }
 `;
 export const onDeleteUser = /* GraphQL */ `
-  subscription OnDeleteUser {
-    onDeleteUser {
+  subscription OnDeleteUser($owner: String) {
+    onDeleteUser(owner: $owner) {
       id
       firstname
       lastname
       mobil
+      claims {
+        items {
+          id
+          name
+          description
+          date
+          oneCar
+          driver2
+          image
+          owner
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
+      owner
     }
   }
 `;
 export const onCreateClaim = /* GraphQL */ `
-  subscription OnCreateClaim {
-    onCreateClaim {
+  subscription OnCreateClaim($owner: String) {
+    onCreateClaim(owner: $owner) {
       id
       name
       description
@@ -47,14 +95,15 @@ export const onCreateClaim = /* GraphQL */ `
       oneCar
       driver2
       image
+      owner
       createdAt
       updatedAt
     }
   }
 `;
 export const onUpdateClaim = /* GraphQL */ `
-  subscription OnUpdateClaim {
-    onUpdateClaim {
+  subscription OnUpdateClaim($owner: String) {
+    onUpdateClaim(owner: $owner) {
       id
       name
       description
@@ -62,14 +111,15 @@ export const onUpdateClaim = /* GraphQL */ `
       oneCar
       driver2
       image
+      owner
       createdAt
       updatedAt
     }
   }
 `;
 export const onDeleteClaim = /* GraphQL */ `
-  subscription OnDeleteClaim {
-    onDeleteClaim {
+  subscription OnDeleteClaim($owner: String) {
+    onDeleteClaim(owner: $owner) {
       id
       name
       description
@@ -77,6 +127,7 @@ export const onDeleteClaim = /* GraphQL */ `
       oneCar
       driver2
       image
+      owner
       createdAt
       updatedAt
     }
